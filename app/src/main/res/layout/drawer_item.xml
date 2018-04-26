@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="230dp"
+    android:layout_height="48dp"
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants">
+
+    <TextView
+        android:textSize="20sp"
+        android:gravity="center"
+        android:id="@+id/title"
+        android:layout_width="180dp"
+        android:layout_height="match_parent" />
+
+    <ImageButton
+        android:id="@+id/btn_close"
+        android:background="@drawable/close"
+        android:layout_width="48dp"
+        android:layout_height="match_parent" />
+</LinearLayout>

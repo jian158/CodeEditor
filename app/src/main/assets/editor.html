@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editor</title>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script src="highlight.pack.js"></script>
+    <link href="styles/github-gist.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+        .body{
+            font-size: large;
+            font-family: "Microsoft JhengHei",sans-serif;
+        }
+        .edit{
+            width: 100%;
+            border: 1px groove #00cc66;
+        }
+        .code{
+            border: 1px double #00ffff;
+        }
+
+
+    </style>
+    <script type="text/javascript">
+    function showText() {
+        var code=document.getElementById('code');
+        code.innerHTML=jsObject.getText();
+        flush();
+    }
+
+    function flush() {
+        $('pre code').each(function(i,block){
+            hljs.highlightBlock(block);
+        });
+    }
+
+
+    </script>
+</head>
+<body class="body">
+<div>
+    <input type="text" placeholder="##在此编辑" id="editview" class="edit">
+</div>
+<pre>
+    <code id="code"></code>
+</pre>
+
+</body>
+</html>

@@ -51,6 +51,8 @@ public class Editor extends View implements OnScrollListener, View.OnKeyListener
     private Timer cursorTimer = new Timer();
     private boolean cursorVisibility = true;
 
+    private String maxString = "";
+
     public Editor(Context context) {
         this(context, null);
     }
@@ -103,15 +105,6 @@ public class Editor extends View implements OnScrollListener, View.OnKeyListener
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = resolveSize(1080, widthMeasureSpec);
         int height = resolveSize(1920, widthMeasureSpec);
-
-        String maxString = "";
-        int max = 0;
-        for (SpanString s : textList) {
-            if (s.length() > max) {
-                max = s.length();
-                maxString = s.toString();
-            }
-        }
 
         if (TextUtils.isEmpty(maxString))
             maxString = "Hello";
@@ -292,18 +285,19 @@ public class Editor extends View implements OnScrollListener, View.OnKeyListener
         startLine = 0;
         cursorX = getPaddingLeft();
         cursorY = 0;
+        maxString = "";
         if (text == null || TextUtils.isEmpty(text)) {
-            synchronized (textList) {
+            synchronized (Editor.class) {
                 textList.clear();
+                textList.add(new SpanString(""));
             }
-            textList.add(new SpanString(""));
             notifyDataAll();
             return;
         }
         String[] texts = text.split("\n");
         textList.clear();
         for (int i = 0; i < texts.length; i++) {
-            textList.add(new SpanString(texts[i]));
+            this.appendPost(texts[i]);
         }
         notifyDataAll();
     }
@@ -318,11 +312,17 @@ public class Editor extends View implements OnScrollListener, View.OnKeyListener
     }
 
     public void append(String text) {
+        if (text.length() > maxString.length()) {
+            maxString = text;
+        }
         textList.add(new SpanString(text));
         notifyDataAll();
     }
 
     public void appendPost(String text) {
+        if (text.length() > maxString.length()) {
+            maxString = text;
+        }
         textList.add(new SpanString(text));
     }
 
@@ -334,6 +334,7 @@ public class Editor extends View implements OnScrollListener, View.OnKeyListener
             startLine = 0;
             selectionLine = 0;
             cursorIndex = 0;
+            maxString = "";
         }
         invalidate();
     }

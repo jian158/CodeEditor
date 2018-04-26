@@ -91,13 +91,13 @@ public class CodeEditorActivity extends Activity
         editor.clear();
         frameLayout.removeView(editor);
         editor = null;
-        if (map.size() > 0) {
+        if (map.size() > 0 && frameLayout.getChildCount() == 0) {
             currentView = map.valueAt(0);
             frameLayout.addView(currentView);
             if (getActionBar() != null) {
                 getActionBar().setTitle(currentView.getName());
             }
-        } else {
+        } else if (map.size() == 0) {
             if (getActionBar() != null) {
                 getActionBar().setTitle(R.string.title_activity_main2);
             }

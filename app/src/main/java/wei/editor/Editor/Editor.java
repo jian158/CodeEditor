@@ -229,13 +229,13 @@ public class Editor extends View implements OnScrollListener, View.OnKeyListener
                 selectionLine--;
             } else if (cursorIndex == 0 && textList.get(selectionLine).length() > 0) {
                 SpanString spanString = textList.get(selectionLine - 1);
+                cursorIndex = spanString.toString().length();
+                cursorX = paint.measureText(spanString.toString()) + getPaddingLeft();
+                cursorY -= lineHeight;
                 String Text = spanString.toString() + textList.get(selectionLine).toString();
                 spanString.setString(Text);
                 spanString.setModify(true);
                 textList.remove(selectionLine);
-                cursorIndex = Text.length();
-                cursorX = paint.measureText(Text) + getPaddingLeft();
-                cursorY -= lineHeight;
                 selectionLine--;
             } else if (textList.get(selectionLine).length() > 0) {
                 SpanString spanString = textList.get(selectionLine);

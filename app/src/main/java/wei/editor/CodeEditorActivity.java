@@ -89,7 +89,20 @@ public class CodeEditorActivity extends Activity
     public void onNavigationDrawerItemClosed(String key) {
         TextEditor editor = map.remove(key);
         editor.clear();
+        frameLayout.removeView(editor);
         editor = null;
+        if (map.size() > 0) {
+            currentView = map.valueAt(0);
+            frameLayout.addView(currentView);
+            if (getActionBar() != null) {
+                getActionBar().setTitle(currentView.getName());
+            }
+        } else {
+            if (getActionBar() != null) {
+                getActionBar().setTitle(R.string.title_activity_main2);
+            }
+        }
+
     }
 
 

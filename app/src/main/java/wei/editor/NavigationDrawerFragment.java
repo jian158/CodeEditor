@@ -274,10 +274,10 @@ public class NavigationDrawerFragment extends Fragment implements DrawerAdapter.
 
     @Override
     public void onCloseListener(int position) {
-        list.remove(position);
+        String key = list.remove(position);
         drawerAdapter.notifyDataSetChanged();
         if (mCallbacks != null) {
-            mCallbacks.onNavigationDrawerItemClosed(list.get(position));
+            mCallbacks.onNavigationDrawerItemClosed(key);
         }
     }
 
